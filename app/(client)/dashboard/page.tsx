@@ -50,13 +50,29 @@ export default function DashboardPage() {
   }, [router]);
 
 
-  // Demo backend-driven metrics (replace with real API data)
+  // Fetch real metrics from API
   const [healthPercent, setHealthPercent] = useState<number>(73);
   const [monthlyTotals, setMonthlyTotals] = useState<{ totalIn: number; totalOut: number; currency?: string }>({
-    totalIn: 4520.5,
-    totalOut: 1389.25,
+    totalIn: 0,
+    totalOut: 0,
     currency: "USD",
   });
+
+  // Fetch monthly transaction summary
+  useEffect(() => {
+    api
+      .get("/api/transactions/summary")
+      .then((res) => {
+        setMonthlyTotals({
+          totalIn: res.data.totalIn || 0,
+          totalOut: res.data.totalOut || 0,
+          currency: res.data.currency || "USD",
+        });
+      })
+      .catch(() => {
+        console.error("Failed to fetch transaction summary");
+      });
+  }, []);
   const [history, setHistory] = useState<Array<{ id: string; date: string; desc: string; amount: number }>>([
     { id: "1", date: "2026-02-12", desc: "Salary", amount: 3000 },
     { id: "2", date: "2026-02-14", desc: "Coffee Shop", amount: -4.5 },
