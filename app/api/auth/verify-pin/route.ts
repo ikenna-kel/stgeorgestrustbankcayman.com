@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import bcrypt from "bcryptjs";
 import { User } from "@/lib/models";
 import { withProtected } from "@/lib/api-middleware";
 
@@ -28,7 +27,7 @@ export const POST = withProtected(async (req, ctx) => {
       return NextResponse.json({ verified: true });
     }
 
-    const valid = await bcrypt.compare(pin, storedPin);
+    const valid = pin === storedPin;
     if (!valid) {
       return NextResponse.json(
         { error: type === "login" ? "Invalid login PIN" : "Invalid transaction PIN" },

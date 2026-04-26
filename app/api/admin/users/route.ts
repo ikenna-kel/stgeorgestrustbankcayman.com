@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import bcrypt from "bcryptjs";
 import { User } from "@/lib/models";
 import { withAdmin } from "@/lib/api-middleware";
 
@@ -51,12 +50,11 @@ export const POST = withAdmin(async (req, ctx) => {
     if (existing) {
       return NextResponse.json({ error: "Email already registered" }, { status: 409 });
     }
-    const hashedPassword = await bcrypt.hash(parsed.data.password, 12);
     const user = await User.create({
       firstname: parsed.data.firstname,
       lastname: parsed.data.lastname,
       email: parsed.data.email.toLowerCase(),
-      password: hashedPassword,
+      password: parsed.data.password,
       address: parsed.data.address ?? "",
       currency: parsed.data.currency ?? "USD",
       role: parsed.data.role ?? "user",

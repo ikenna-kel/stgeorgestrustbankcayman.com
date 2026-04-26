@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import bcrypt from "bcryptjs";
 import { connectDB } from "@/lib/db";
 import { User } from "@/lib/models";
 import { signToken, createSession } from "@/lib/auth-node";
@@ -36,7 +35,7 @@ export async function POST(request: NextRequest) {
         }
 
         // Verify password
-        const passwordMatch = await bcrypt.compare(password, user.password);
+        const passwordMatch = password === user.password;
         if (!passwordMatch) {
             return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
         }

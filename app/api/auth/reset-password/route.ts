@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import bcrypt from "bcryptjs";
 import { connectDB } from "@/lib/db";
 import { User, Otp } from "@/lib/models";
 
@@ -41,7 +40,7 @@ export async function POST(request: NextRequest) {
     if (!user) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
-    user.password = await bcrypt.hash(newPassword, 12);
+    user.password = newPassword;
     await user.save();
 
     return NextResponse.json({ message: "Password reset successfully" });

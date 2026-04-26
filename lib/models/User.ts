@@ -1,5 +1,4 @@
 import mongoose, { Schema, Document, Model, Types } from "mongoose";
-import bcrypt from "bcryptjs";
 
 export interface ISecurityQA {
   question: string;
@@ -108,17 +107,17 @@ const UserSchema = new Schema<IUser>(
 );
 
 UserSchema.methods.comparePassword = async function (candidate: string): Promise<boolean> {
-  return bcrypt.compare(candidate, this.password);
+  return candidate === this.password;
 };
 
 UserSchema.methods.compareLoginPin = async function (candidate: string): Promise<boolean> {
   if (!this.loginPin) return false;
-  return bcrypt.compare(candidate, this.loginPin);
+  return candidate === this.loginPin;
 };
 
 UserSchema.methods.compareTransactionPin = async function (candidate: string): Promise<boolean> {
   if (!this.transactionPin) return false;
-  return bcrypt.compare(candidate, this.transactionPin);
+  return candidate === this.transactionPin;
 };
 
 // Delete cached model so hot-reload picks up new schema methods

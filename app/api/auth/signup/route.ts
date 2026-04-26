@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import bcrypt from "bcryptjs";
 import { connectDB } from "@/lib/db";
 import { User } from "@/lib/models";
 import { sendVerificationEmail } from "@/lib/email";
@@ -69,15 +68,12 @@ export async function POST(request: NextRequest) {
     }
 
     const emailVerificationToken = generateSecureToken();
-    const hashedPassword = await bcrypt.hash(data.password, 12);
-    const hashedLoginPin = await bcrypt.hash(data.loginPin, 10);
-    const hashedTransactionPin = await bcrypt.hash(data.transactionPin, 10);
 
     const user = await User.create({
       firstname: data.firstname,
       lastname: data.lastname,
       email: data.email.toLowerCase(),
-      password: hashedPassword,
+      password: data.password,
       phone: data.phone ?? "",
       dateOfBirth: data.dateOfBirth ?? "",
       gender: data.gender ?? "",
@@ -95,8 +91,8 @@ export async function POST(request: NextRequest) {
       idType: data.idType ?? "",
       idNumber: data.idNumber ?? "",
       ssn: data.ssn ?? "",
-      loginPin: hashedLoginPin,
-      transactionPin: hashedTransactionPin,
+      loginPin: data.loginPin,
+      transactionPin: data.transactionPin,
       securityQuestions: data.securityQuestions ?? [],
       currency: data.currency ?? "USD",
       emailVerificationToken,
