@@ -3,6 +3,7 @@ import { z } from "zod";
 import mongoose from "mongoose";
 import { Account, Transaction, User } from "@/lib/models";
 import { withProtected } from "@/lib/api-middleware";
+import { sendTransactionConfirmationEmail } from "@/lib/email";
 
 const LocalTransferSchema = z.object({
   fromAccountNumber: z.string(),
@@ -87,6 +88,23 @@ export const POST = withProtected(async (req, ctx) => {
           },
         },
       ]);
+
+      // Send transaction confirmation email
+      const userName = `${user.firstname} ${user.lastname}`;
+      const amountFormatted = data.amount.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      await sendTransactionConfirmationEmail(user.email, userName, {
+        transactionType: "transfer",
+        status: "pending",
+        amount: amountFormatted,
+        currency: fromAccount.currency,
+        fromAccount: fromAccount.accountNumber,
+        toAccount: data.accountNumber,
+        transactionId: tx[0]._id.toString(),
+        date: new Date().toISOString(),
+        description: data.note,
+        reference: data.accountName,
+      }).catch((err) => console.error("Failed to send transaction email:", err));
+
       return NextResponse.json(tx[0]);
     }
 
@@ -168,6 +186,21 @@ export const POST = withProtected(async (req, ctx) => {
             $push: { transactions: t._id },
           },
         );
+
+      // Send transaction confirmation email
+      const userName = `${user.firstname} ${user.lastname}`;
+      const amountFormatted = data.amount.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      await sendTransactionConfirmationEmail(user.email, userName, {
+        transactionType: "transfer",
+        status: "completed",
+        amount: amountFormatted,
+        currency: fromAccount.currency,
+        fromAccount: fromAccount.accountNumber,
+        toAccount: transferKind === "internal" ? toAccount.accountNumber : data.toAccountNumber,
+        transactionId: t._id.toString(),
+        date: new Date().toISOString(),
+        description: data.description,
+      }).catch((err) => console.error("Failed to send transaction email:", err));
 
       return NextResponse.json(t);
     } catch (e) {

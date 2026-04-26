@@ -107,8 +107,8 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen bg-[#0F172A] text-slate-300 font-sans flex flex-col">
-      <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-blue-600/15 blur-[120px] rounded-full pointer-events-none" />
-      <div className="fixed bottom-0 left-0 w-[400px] h-[400px] bg-cyan-600/10 blur-[100px] rounded-full pointer-events-none" />
+      <div className="fixed top-0 left-1/2 -translate-x-1/2 w-200 h-100 bg-blue-600/15 blur-[120px] rounded-full pointer-events-none" />
+      <div className="fixed bottom-0 left-0 w-100 h-100 bg-cyan-600/10 blur-[100px] rounded-full pointer-events-none" />
 
       {/* Navbar */}
       <nav className="w-full z-50 bg-[#0F172A]/80 backdrop-blur-md border-b border-slate-800">

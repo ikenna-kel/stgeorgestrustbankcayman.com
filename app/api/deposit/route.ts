@@ -3,6 +3,7 @@ import { z } from "zod";
 import mongoose from "mongoose";
 import { Account, Transaction, User } from "@/lib/models";
 import { withProtected } from "@/lib/api-middleware";
+import { sendTransactionConfirmationEmail } from "@/lib/email";
 
 const DepositSchema = z.object({
   accountNumber: z.string(),
@@ -59,6 +60,26 @@ export const POST = withProtected(async (req, ctx) => {
         { session }
       );
       await session.commitTransaction();
+
+      // Send transaction confirmation email
+      const userDoc = await User.findById(ctx.userId).lean();
+      if (userDoc) {
+        const userName = `${userDoc.firstname} ${userDoc.lastname}`;
+        const amountFormatted = parsed.data.amount.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        await sendTransactionConfirmationEmail(userDoc.email, userName, {
+          transactionType: "deposit",
+          status: "completed",
+          amount: amountFormatted,
+          currency: parsed.data.currency ?? account.currency,
+          fromAccount: "CRYPTO_EXTERNAL",
+          toAccount: account.accountNumber,
+          transactionId: t._id.toString(),
+          date: new Date().toISOString(),
+          description: parsed.data.description ?? (parsed.data.cryptoReference ? "Crypto deposit" : "Deposit"),
+          reference: parsed.data.cryptoReference,
+        }).catch((err) => console.error("Failed to send deposit email:", err));
+      }
+
       return NextResponse.json(t);
     } catch (e) {
       await session.abortTransaction();
