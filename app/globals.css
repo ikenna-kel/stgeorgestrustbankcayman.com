@@ -1,0 +1,213 @@
+@import "tailwindcss";
+
+
+
+@theme inline {
+  /* Base theme colors */
+  --background: #ffffff;
+  --foreground: #171717;
+
+  /* Primary and secondary color scheme for Tailwind css */
+  --color-primary: #0B2D72;
+  --color-primary-100: #173a82;
+  --color-primary-200: #244790;
+  --color-primary-300: #36589e;
+  --color-primary-400: #4d6aaa;
+  --color-primary-500: #4d6aaa;
+  --color-primary-600: #0B2D72;
+  /* Base */
+  --color-primary-700: #08265d;
+  --color-primary-800: #061d49;
+  --color-primary-900: #03102e;
+
+  --color-secondary: #0992C2;
+  --color-secondary-100: #13a0ce;
+  --color-secondary-200: #20acd7;
+  --color-secondary-300: #33b9e1;
+  --color-secondary-400: #45c6eb;
+  --color-secondary-500: #56d3f5;
+  --color-secondary-600: #0992C2;
+  /* Base */
+  --color-secondary-700: #077094;
+  --color-secondary-800: #06536d;
+  --color-secondary-900: #033340;
+
+  /* Extra accent colors */
+  --color-accent: #0AC4E0;
+  --color-accent-light: #4de7fa;
+  --color-accent-dark: #077b93;
+
+  --color-warm: #F6E7BC;
+  --color-warm-dark: #e3c97a;
+
+  /* Example mappings for text and card backgrounds (can use with Tailwind's [css variables] feature) */
+  --text-main: var(--color-primary-900);
+  --text-light: var(--color-primary-100);
+  --text-on-primary: #ffffff;
+  --card-bg: var(--color-warm);
+
+}
+
+body {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-400) 100%);
+}
+
+
+.bg-gradient-primary {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-400) 100%);
+}
+
+.bg-gradient-secondary {
+  background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-accent) 100%);
+}
+
+.embla {
+  width: 100%;
+  max-width: 48rem;
+  margin: auto;
+  --slide-height: 19rem;
+  --slide-spacing: 0.75rem;
+  --slide-size: 100%;
+}
+
+.embla__viewport {
+  overflow: hidden;
+}
+
+.embla__container {
+  display: flex;
+  touch-action: pan-y pinch-zoom;
+  margin-left: calc(var(--slide-spacing) * -1);
+}
+
+.embla__slide {
+  flex: 0 0 var(--slide-size);
+  min-width: 0;
+  padding-left: var(--slide-spacing);
+}
+
+@media (min-width: 768px) {
+  .embla {
+    max-width: 56rem;
+    --slide-spacing: 1rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .embla {
+    max-width: 62rem;
+    --slide-spacing: 1.25rem;
+  }
+}
+
+.embla__slide__number {
+  border: 0.2rem solid var(--detail-medium-contrast);
+  border-radius: 1.8rem;
+  font-size: 4rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--slide-height);
+  user-select: none;
+}
+
+.embla__controls {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  justify-content: space-between;
+  gap: 1.2rem;
+}
+
+.embla__buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.6rem;
+  align-items: center;
+}
+
+.embla__button {
+  -webkit-tap-highlight-color: rgba(var(--text-high-contrast-rgb-value), 0.5);
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: transparent;
+  touch-action: manipulation;
+  display: inline-flex;
+  text-decoration: none;
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  border: 0.2rem solid var(--detail-medium-contrast);
+  width: 3.6rem;
+  height: 3.6rem;
+  z-index: 1;
+  border-radius: 50%;
+  color: var(--text-body);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(0deg);
+}
+
+.embla__button--disabled {
+  color: var(--detail-high-contrast);
+}
+
+.embla__button__svg {
+  width: 35%;
+  height: 35%;
+}
+
+.embla__dots {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  margin-right: calc((2.6rem - 1.4rem) / 2 * -1);
+}
+
+.embla__dot {
+  -webkit-tap-highlight-color: rgba(var(--text-high-contrast-rgb-value), 0.5);
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: transparent;
+  touch-action: manipulation;
+  display: inline-flex;
+  text-decoration: none;
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  width: 2.6rem;
+  height: 2.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  position: relative;
+}
+
+.embla__dot:before,
+.embla__dot:after {
+  width: 1.4rem;
+  height: 1.4rem;
+  border-radius: 50%;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  content: '';
+}
+
+.embla__dot:before {
+  border: 0.2rem solid var(--detail-medium-contrast);
+}
+
+.embla__dot:after {
+  border: 0.2rem solid var(--text-body);
+  opacity: 0;
+}
+
+.embla__dot--selected:after {
+  opacity: 1;
+}
