@@ -355,7 +355,7 @@ function getTransactionConfirmationContent(data: {
   };
 
   const statusInfo = statusConfig[data.status];
-  
+
   const transactionTypeConfig = {
     transfer: "Fund Transfer",
     payment: "Payment",
@@ -478,7 +478,7 @@ function getTransactionConfirmationContent(data: {
 
 export async function sendWelcomeEmail(to: string, userName: string): Promise<boolean> {
   const html = getEmailTemplate(getWelcomeEmailContent(userName));
-  
+
   const { error } = await getResend().emails.send({
     from: FROM_EMAIL,
     to: [to],
@@ -504,8 +504,9 @@ export async function sendTransactionConfirmationEmail(
     reference?: string;
   }
 ): Promise<boolean> {
+  console.log("Sending transaction confirmation email to:", to, "with data:", data);
   const html = getEmailTemplate(getTransactionConfirmationContent({ userName, ...data }));
-  
+
   const statusText = data.status === "completed" ? "Confirmed" : data.status === "pending" ? "Pending" : "Failed";
   const transactionTypeText = {
     transfer: "Transfer",

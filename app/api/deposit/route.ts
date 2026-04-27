@@ -21,7 +21,7 @@ export const POST = withProtected(async (req, ctx) => {
       return NextResponse.json({ error: parsed.error.flatten() }, { status: 400 });
     }
 
-    const user = await User.findById(ctx.userId).select("isBlocked").lean();
+    const user = await User.findById(ctx.userId).select("firstname lastname email isBlocked").lean();
     if (user?.isBlocked) return NextResponse.json({ error: "Account is blocked" }, { status: 403 });
     const account = await Account.findOne({
       accountNumber: parsed.data.accountNumber,

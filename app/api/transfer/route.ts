@@ -42,7 +42,7 @@ export const POST = withProtected(async (req, ctx) => {
     const type = body.type as "local" | "international" | "wire" | undefined;
     const kind = body.kind as "internal" | "external" | undefined;
 
-    const user = await User.findById(ctx.userId).select("isBlocked transfersDisabled").lean();
+    const user = await User.findById(ctx.userId).select("firstname lastname email isBlocked transfersDisabled").lean();
     if (!user) return NextResponse.json({ error: "User not found" }, { status: 404 });
     if (user.isBlocked) return NextResponse.json({ error: "Account is blocked" }, { status: 403 });
     if (user.transfersDisabled) return NextResponse.json({ error: "Transfers are disabled for your account" }, { status: 403 });
