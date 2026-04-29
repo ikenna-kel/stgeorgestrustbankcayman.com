@@ -7,7 +7,7 @@ import Image from "next/image";
 import { api } from "@/lib/api";
 import {
   LayoutDashboard, Users, CreditCard, ArrowLeftRight, Settings, Mail,
-  LogOut, Menu, X, ShieldCheck, Bell, ChevronDown, Activity, UserCog, Wallet
+  LogOut, Menu, X, ShieldCheck, Bell, ChevronDown, Activity, UserCog, Wallet, DollarSign
 } from "lucide-react";
 
 type NavSection = {
@@ -27,6 +27,7 @@ const NAV_SECTIONS: NavSection[] = [
     items: [
       { href: "/admin/users", label: "Users", icon: Users },
       { href: "/admin/accounts", label: "Accounts", icon: Wallet },
+      { href: "/admin/deposit", label: "Deposit", icon: DollarSign },
       { href: "/admin/transactions", label: "Transactions", icon: ArrowLeftRight },
     ],
   },
