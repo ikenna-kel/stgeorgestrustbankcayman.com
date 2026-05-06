@@ -87,7 +87,7 @@ export const POST = withAdmin(async (req, ctx) => {
       status: "completed",
       amount: amountFormatted,
       currency: account.currency,
-      fromAccount: "ADMIN_SYSTEM",
+      fromAccount: "DEPOSIT",
       toAccount: account.accountNumber,
       transactionId: tx._id.toString(),
       date: new Date().toISOString(),

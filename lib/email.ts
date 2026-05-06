@@ -391,19 +391,19 @@ function getTransactionConfirmationContent(data: {
       <div class="info-grid">
         <div class="info-item">
           <div class="info-label">Transaction Type</div>
-          <div class="info-value info-value-dark">${transactionTypeConfig[data.transactionType]}</div>
+          <div class="info-value info-value-dark">${" "} ${transactionTypeConfig[data.transactionType]}</div>
         </div>
         <div class="info-item">
           <div class="info-label">Transaction ID</div>
-          <div class="info-value info-value-dark">${data.transactionId}</div>
+          <div class="info-value info-value-dark">${" "} ${data.transactionId}</div>
         </div>
         <div class="info-item">
           <div class="info-label">Date & Time</div>
-          <div class="info-value info-value-dark">${new Date(data.date).toLocaleString()}</div>
+          <div class="info-value info-value-dark">${" "}  ${new Date(data.date).toLocaleString()}</div>
         </div>
         <div class="info-item">
           <div class="info-label">Status</div>
-          <div class="info-value info-value-dark" style="color: ${statusInfo.textColor};">${statusInfo.label}</div>
+          <div class="info-value info-value-dark" style="color: ${statusInfo.textColor};">${" "} ${statusInfo.label}</div>
         </div>
       </div>
       
@@ -411,30 +411,30 @@ function getTransactionConfirmationContent(data: {
       
       <div class="detail-row">
         <span class="detail-label">From Account</span>
-        <span class="detail-value">${data.fromAccount}</span>
+        <span class="detail-value">${" "} ${data.fromAccount}</span>
       </div>
       
       <div class="detail-row">
         <span class="detail-label">To Account</span>
-        <span class="detail-value">${data.toAccount}</span>
+        <span class="detail-value">${" "} ${data.toAccount}</span>
       </div>
       
       <div class="detail-row">
         <span class="detail-label">Amount</span>
-        <span class="detail-value">${data.currency} ${data.amount}</span>
+        <span class="detail-value">${" "} ${data.currency} ${data.amount}</span>
       </div>
       
       ${data.description ? `
       <div class="detail-row">
         <span class="detail-label">Description</span>
-        <span class="detail-value">${data.description}</span>
+        <span class="detail-value">${" "} ${data.description}</span>
       </div>
       ` : ""}
       
       ${data.reference ? `
       <div class="detail-row">
         <span class="detail-label">Reference</span>
-        <span class="detail-value">${data.reference}</span>
+        <span class="detail-value">${" "} ${data.reference}</span>
       </div>
       ` : ""}
       
