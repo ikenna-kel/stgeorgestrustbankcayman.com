@@ -100,13 +100,11 @@ const LandingPage: React.FC = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
-              <button className="w-full sm:w-auto bg-blue-600 hover:bg-blue-500 text-white px-8 py-4 rounded-full font-bold transition-all flex items-center justify-center gap-2 group">
+              <Link href="/signup" className="w-full sm:w-auto bg-blue-600 hover:bg-blue-500 text-white px-8 py-4 rounded-full font-bold transition-all flex items-center justify-center gap-2 group">
                 Open Free Account
                 <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-              </button>
-              <button className="w-full sm:w-auto bg-slate-800 hover:bg-slate-700 text-white px-8 py-4 rounded-full font-bold transition-all flex items-center justify-center gap-2">
-                <Play size={18} className="fill-current" /> View Demo
-              </button>
+              </Link>
+              
             </div>
           </div>
 
@@ -114,7 +112,7 @@ const LandingPage: React.FC = () => {
           <div className="relative mx-auto w-full max-w-md lg:max-w-full perspective-1000">
             <div className="relative rounded-2xl bg-linear-to-b from-slate-800 to-slate-900 border border-slate-700 shadow-2xl overflow-hidden transform lg:rotate-y-[-10deg] lg:rotate-x-[5deg] transition-transform duration-500 hover:rotate-0">
               <img
-                src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop"
+                src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920&q=80&auto=format&fit=crop"
                 alt="Dashboard Preview"
                 className="w-full h-auto opacity-80 mix-blend-screen"
               />
@@ -124,8 +122,8 @@ const LandingPage: React.FC = () => {
                   <CheckCircle2 size={24} />
                 </div>
                 <div>
-                  <p className="text-white font-bold text-sm">Payment Received</p>
-                  <p className="text-xs text-slate-400">+$1,250.00 from Apple Inc.</p>
+                  <p className="text-white font-bold text-sm">Reliable</p>
+                  <p className="text-xs text-slate-400">Trusted by thousands of users worldwide</p>
                 </div>
               </div>
             </div>

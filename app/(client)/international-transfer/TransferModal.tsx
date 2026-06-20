@@ -201,13 +201,6 @@ const TransferModal = ({ method, onClose }: any) => {
                     </div>
                   ))}
                 </div>
-
-                <div className="bg-amber-500/10 border border-amber-500/20 rounded-2xl p-4">
-                  <p className="text-amber-400/90 text-xs leading-relaxed">
-                    ⚠️ This transfer will be submitted for review. Funds will only be deducted after admin approval. Please ensure all details are correct.
-                  </p>
-                </div>
-
                 <button
                   onClick={() => setShowPinModal(true)}
                   disabled={loading}
